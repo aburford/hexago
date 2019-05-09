@@ -3,8 +3,10 @@ package hexago;
 public class BoardLogic {
 	MarbleHole[][] board;
 	int axis;
+	private int consecutive;
 
-	public BoardLogic(int n) {
+	public BoardLogic(int n, int consecutive) {
+		this.consecutive = consecutive;
 		board = new MarbleHole[n][n];
 		axis = n / 2;
 		// future possibility: load game from save file
@@ -98,17 +100,17 @@ public class BoardLogic {
 	// will actually work for any convex shape
 	// could probably be more efficient
 	// TODO: deal with ties
-	public Marble checkForWinner(int n) {
+	public Marble checkForWinner() {
 		printBoard();
 		for (int r = 0; r < board.length; r++) {
 			for (int c = 0; c < board[r].length; c++) {
 				if (board[r][c].value == Marble.EMPTY)
 					continue;
-				if (r + n <= board.length && c - n >= -1 && traverse(Direction.SOUTHWEST, r, c, n)
-						|| r + n <= board.length && traverse(Direction.SOUTH, r, c, n)
-						|| r + n <= board.length && c + n <= board[r + n - 1].length
-								&& traverse(Direction.SOUTHEAST, r, c, n)
-						|| c + n <= board[r].length && traverse(Direction.EAST, r, c, n))
+				if (r + consecutive <= board.length && c - consecutive >= -1 && traverse(Direction.SOUTHWEST, r, c, consecutive)
+						|| r + consecutive <= board.length && traverse(Direction.SOUTH, r, c, consecutive)
+						|| r + consecutive <= board.length && c + consecutive <= board[r + consecutive - 1].length
+								&& traverse(Direction.SOUTHEAST, r, c, consecutive)
+						|| c + consecutive <= board[r].length && traverse(Direction.EAST, r, c, consecutive))
 					return board[r][c].value;
 			}
 		}

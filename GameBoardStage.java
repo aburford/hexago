@@ -1,12 +1,18 @@
 package hexago;
 
 import javafx.stage.Stage;
+
+import java.util.HashMap;
+
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.TextAlignment;
 
 public class GameBoardStage extends Stage {
 	Quadrant[] quads = new Quadrant[4];
@@ -16,12 +22,16 @@ public class GameBoardStage extends Stage {
 	private Quadrant rotatedQuadrant = null;
 	private Button finishTurn;
 	private Label info;
+	private HashMap<Marble, String> names;
 	// n must be even so we can divide into quadrants
-	public GameBoardStage(int n) {
+	public GameBoardStage(int n, int consecutive, String white, String black) {
+		names = new HashMap<Marble, String>();
+		names.put(Marble.WHITE, white);
+		names.put(Marble.BLACK, black);
 		BorderPane bp = new BorderPane();
 		Pane pane = new Pane();
 		bp.setCenter(pane);
-		bl = new BoardLogic(n);
+		bl = new BoardLogic(n, consecutive);
 		for (int i = 1; i <= 4; i++) {
 			Quadrant q = new Quadrant(bl.getQuadrant(i), this, i);
 			if (i == 1 || i == 4)
@@ -49,7 +59,7 @@ public class GameBoardStage extends Stage {
 			placedMarble = null;
 			currentTurn = (currentTurn == Marble.WHITE) ? Marble.BLACK : Marble.WHITE;
 			// this won't do anything if no winner
-			Marble winner = bl.checkForWinner(6);
+			Marble winner = bl.checkForWinner();
 			if (winner == Marble.EMPTY)
 				updateFinishTurn();
 			else {
@@ -60,16 +70,18 @@ public class GameBoardStage extends Stage {
 				currentTurn = Marble.EMPTY;
 			}
 		});
-		finishTurn.setDisable(true);
 		StackPane bottom = new StackPane(finishTurn);
 		bp.setBottom(bottom);
 		
-		info = new Label("Please place a marble");
+		info = new Label();
+		info.setTextAlignment(TextAlignment.CENTER);
 		StackPane top = new StackPane(info);
 		bp.setTop(top);
 		
 		Scene scene = new Scene(bp, 700, 700);
 		setScene(scene);
+		
+		updateFinishTurn();
 	}
 	
 	public MarbleHoleView getPlacedMarble() {
@@ -94,19 +106,20 @@ public class GameBoardStage extends Stage {
 		if (currentTurn == Marble.EMPTY) // game is over
 			return;
 		// set disable of finish turn button
+		info.setText(names.get(currentTurn) + "'s turn\n");
 		if (placedMarble == null) {
-			info.setText("Please place a marble");
+			info.setText(info.getText() + "Please place a marble");
 			finishTurn.setDisable(true);
 		} else if (rotatedQuadrant == null) {
 			if (bl.neutralBlock()) {
-				info.setText("You don't need to rotate a quadrant");
+				info.setText(info.getText() + "You don't need to rotate a quadrant");
 				finishTurn.setDisable(false);
 			} else {
-				info.setText("You must rotate a quadrant");
+				info.setText(info.getText() + "You must rotate a quadrant");
 				finishTurn.setDisable(true);
 			}
 		} else {
-			info.setText("");
+			info.setText("\n ");
 			finishTurn.setDisable(false);
 		}
 	}
