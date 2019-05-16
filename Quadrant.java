@@ -17,15 +17,17 @@ public class Quadrant extends Pane {
 	double startRotate;
 	Rotation rotation = Rotation.NONE;
 	boolean canRotate = true;
-
+	
 	public Quadrant(MarbleHole[][] holes, GameBoardStage delegate, int num) {
 		this.delegate = delegate;
 		this.num = num;
-		this.setMaxWidth(290);
-		this.setMaxHeight(290);
-		Rectangle r = new Rectangle(290, 290);
-		r.setArcHeight(50);
-		r.setArcWidth(50);
+		final double SIDELENGTH = 300;
+		this.setMaxWidth(SIDELENGTH);
+		this.setMaxHeight(SIDELENGTH);
+		Rectangle r = new Rectangle(SIDELENGTH, SIDELENGTH);
+		double radius = ((SIDELENGTH - 10*(holes.length + 1))/holes.length - 1)/2;
+		r.setArcHeight(radius * 2);
+		r.setArcWidth(radius * 2);
 		r.setFill(Color.RED);
 		getChildren().add(r);
 
@@ -35,7 +37,7 @@ public class Quadrant extends Pane {
 		grid.setVgap(10);
 		for (int i = 0; i < holes.length; i++)
 			for (int j = 0; j < holes[i].length; j++) {
-				Circle c = new MarbleHoleView(holes[i][j], 30, delegate);
+				Circle c = new MarbleHoleView(holes[i][j], radius, delegate);
 				c.setStroke(Color.BLACK);
 				c.setFill(Color.TRANSPARENT);
 				grid.add(c, j, i);

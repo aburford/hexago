@@ -63,7 +63,7 @@ public class GameBoardStage extends Stage {
 			if (winner == Marble.EMPTY)
 				updateFinishTurn();
 			else {
-				info.setText(winner.toString() + " has won!");
+				info.setText(winner.toString() + " has won!\n ");
 				finishTurn.setDisable(true);
 				for (Quadrant q : quads)
 					q.canRotate = false;
@@ -106,7 +106,7 @@ public class GameBoardStage extends Stage {
 		if (currentTurn == Marble.EMPTY) // game is over
 			return;
 		// set disable of finish turn button
-		info.setText(names.get(currentTurn) + "'s turn\n");
+		info.setText((names.get(currentTurn).isEmpty() ? currentTurn.toString() : names.get(currentTurn)) + "'s turn\n");
 		if (placedMarble == null) {
 			info.setText(info.getText() + "Please place a marble");
 			finishTurn.setDisable(true);
@@ -119,7 +119,7 @@ public class GameBoardStage extends Stage {
 				finishTurn.setDisable(true);
 			}
 		} else {
-			info.setText("\n ");
+			info.setText(info.getText() + "Ready to finish turn");
 			finishTurn.setDisable(false);
 		}
 	}
