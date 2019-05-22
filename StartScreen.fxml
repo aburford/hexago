@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="299.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hexago.HexagoApp">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="80.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="quitButton" mnemonicParsing="false" onAction="#quit" text="Quit" />
+            <Button mnemonicParsing="false" onAction="#start" text="Start Game" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+   </bottom>
+   <top>
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Hexago" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="42.0" />
+         </font>
+         <padding>
+            <Insets bottom="6.0" top="6.0" />
+         </padding>
+      </Label>
+   </top>
+   <center>
+      <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Player 1 Name:" />
+            <Label alignment="CENTER" text="Player 2 Name:" GridPane.rowIndex="1" />
+            <TextField fx:id="whiteTF" GridPane.columnIndex="1" />
+            <TextField fx:id="blackTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Board Dimension:" GridPane.rowIndex="2" />
+            <Label text="Consecutive # To Win:" GridPane.rowIndex="3" />
+            <ChoiceBox fx:id="dimensionCB" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <Integer fx:value="2" />
+                  <Integer fx:value="4" />
+                  <Integer fx:value="6" />
+                  <Integer fx:value="8" />
+                  <Integer fx:value="10" />
+                  <Integer fx:value="12" />
+                  <Integer fx:value="14" />
+                  <Integer fx:value="16" />
+                </FXCollections>
+              </items>
+            </ChoiceBox>
+            <ChoiceBox fx:id="consecutiveCB" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+   </center>
+   <left>
+      <Separator opacity="0.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Separator opacity="0.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

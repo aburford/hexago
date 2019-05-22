@@ -1,21 +1,14 @@
 package hexago;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ResourceBundle;
-
-import javax.annotation.Resources;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -32,6 +25,7 @@ public class HexagoApp extends Application{
 	public void start(Stage primaryStage) throws MalformedURLException, IOException{
         URL location = getClass().getResource("StartScreen.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
+        try {
         BorderPane rootPane = (BorderPane)fxmlLoader.load();
 		Scene scene = new Scene(rootPane);
 		primaryStage.setTitle("Hexago");
@@ -56,6 +50,10 @@ public class HexagoApp extends Application{
 					c.remove(c.size() - 1);
 				}
 		});
+        } catch (java.lang.IllegalStateException e){
+        	System.out.println("Please move the StartScreen.fxml to the same directory as the compiled .java files");
+        	System.out.println("(the bin directory if using eclipse)");
+        }
 	}
 	
 	

@@ -30,6 +30,7 @@ public class BoardLogic {
 		}
 	}
 
+	// gets a bit ugly but it works with any dimension
 	public void rotate(int quadNum, boolean clockwise) {
 		int rowOffset = (quadNum > 2) ? axis : 0;
 		int colOffset = (quadNum == 1 || quadNum == 4) ? axis : 0;
@@ -102,8 +103,6 @@ public class BoardLogic {
 	// could probably be more efficient
 	// TODO: deal with ties
 	public Marble checkForWinner() {
-		printBoard(1);
-		System.out.println("-------");
 		for (int r = 0; r < board.length; r++) {
 			for (int c = 0; c < board[r].length; c++) {
 				if (board[r][c].value == Marble.EMPTY)

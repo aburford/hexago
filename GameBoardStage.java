@@ -58,7 +58,6 @@ public class GameBoardStage extends Stage {
 			placedMarble.repaint();
 			placedMarble = null;
 			currentTurn = (currentTurn == Marble.WHITE) ? Marble.BLACK : Marble.WHITE;
-			// this won't do anything if no winner
 			Marble winner = bl.checkForWinner();
 			if (winner == Marble.EMPTY)
 				updateFinishTurn();
